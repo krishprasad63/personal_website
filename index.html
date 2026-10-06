@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Krish Prasad - ECE undergrad at NIT Arunachal Pradesh building RTL processors, serial protocol controllers, and robotics systems."
+    />
+    <meta property="og:title" content="Krish Prasad | Digital Systems Lab" />
+    <meta property="og:description" content="Interactive ECE portfolio showcasing RISC-V RV32I pipelined processor, hardware protocol simulations (I2C, UART, SPI), and RTL systems." />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#080b0f" />
+    <title>Krish Prasad | Digital Systems Lab</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="topbar" aria-label="Primary navigation">
+        <a class="brand" href="#home" aria-label="Krish Prasad home">
+          <span class="brand-mark">KP</span>
+          <span>
+            <strong>Krish Prasad</strong>
+            <small>Digital Systems Lab</small>
+          </span>
+        </a>
+        <nav class="nav-links" id="navLinks" aria-label="Page sections">
+          <a href="#processor">Processor</a>
+          <a href="#protocols">Protocols</a>
+          <a href="#systems">Systems</a>
+          <a href="#skills">Skills</a>
+          <a href="#leadership">Leadership</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </header>
+
+      <main id="home">
+        <section class="hero-section" aria-labelledby="hero-title">
+          <canvas id="heroScope" class="hero-scope" aria-hidden="true"></canvas>
+          <div class="hero-grid" aria-hidden="true"></div>
+          <div class="hero-content">
+            <p class="eyebrow">ECE undergrad • NIT Arunachal Pradesh</p>
+            <h1 id="hero-title">Digital systems that move bits with intent.</h1>
+            <p class="hero-copy">
+              I build RTL processors, serial communication controllers, and robotics systems where timing, control, and hardware behavior are visible instead of hidden behind a project title.
+            </p>
+            <div class="hero-actions">
+              <a class="button primary" href="#protocols">Open Protocol Lab</a>
+              <a class="button secondary" href="#processor">View RISC-V Core</a>
+              <a class="button outline" href="#contact">Get in Touch</a>
+            </div>
+            <div class="status-strip" aria-label="Current focus areas">
+              <span><b>RTL</b> Verilog</span>
+              <span><b>Core</b> ECE</span>
+              <span><b>Focus</b> Processors + Protocols</span>
+            </div>
+          </div>
+          <aside class="hero-console" aria-label="Live system summary">
+            <div class="console-header">
+              <span>system monitor</span>
+              <span class="pulse-dot"></span>
+            </div>
+            <div class="metric-row">
+              <span>pipeline</span>
+              <strong>IF ID EX MEM WB</strong>
+            </div>
+            <div class="metric-row">
+              <span>bus activity</span>
+              <strong id="busActivity">SCL SDA TX MOSI</strong>
+            </div>
+            <div class="mini-trace" aria-hidden="true">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+          </aside>
+        </section>
+
+        <section class="section intro-section" aria-label="Profile summary">
+          <div class="section-kicker">Engineering identity</div>
+          <div class="intro-layout">
+            <h2>ECE student building from logic gates to working systems.</h2>
+            <p>
+              My work sits at the intersection of digital logic, computer architecture, embedded communication, and robotics leadership. The website is designed like a live bench: each major project should show behavior, not just a screenshot.
+            </p>
+          </div>
+        </section>
+
+        <section class="section processor-section" id="processor" aria-labelledby="processor-title">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">Featured build</p>
+              <h2 id="processor-title">RISC-V RV32I Pipeline</h2>
+            </div>
+            <p>
+              A modular 32-bit pipelined processor in Verilog, represented here as a moving five-stage machine with active hazard handling and forwarding controls.
+            </p>
+          </div>
+
+          <div class="pipeline-lab">
+            <div class="pipeline-toolbar" aria-label="Pipeline controls">
+              <div class="btn-group">
+                <button class="icon-button" id="pipelineToggle" type="button">Pause</button>
+                <button class="icon-button" id="pipelineStep" type="button">Step</button>
+              </div>
+              <label class="toggle-line">
+                <input id="forwardingToggle" type="checkbox" checked />
+                <span>Forwarding path</span>
+              </label>
+            </div>
+            <div class="pipeline-board" aria-live="polite">
+              <div class="stage" data-stage="IF"><span>IF</span><small>fetch</small></div>
+              <div class="stage" data-stage="ID"><span>ID</span><small>decode</small></div>
+              <div class="stage" data-stage="EX"><span>EX</span><small>execute</small></div>
+              <div class="stage" data-stage="MEM"><span>MEM</span><small>memory</small></div>
+              <div class="stage" data-stage="WB"><span>WB</span><small>write back</small></div>
+              <svg class="forwarding-svg" viewBox="0 0 1000 260" preserveAspectRatio="none" aria-hidden="true">
+                <path id="forwardingPath" d="M 690 186 C 620 238 420 238 350 186" />
+                <path id="hazardPath" d="M 520 76 C 470 32 300 32 250 76" />
+              </svg>
+            </div>
+            <div class="pipeline-readout">
+              <div>
+                <span class="readout-label">instruction window</span>
+                <strong id="pipelineInstruction">addi x5, x0, 8</strong>
+              </div>
+              <div>
+                <span class="readout-label">current event</span>
+                <strong id="pipelineEvent">Fetching instruction</strong>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section protocol-section" id="protocols" aria-labelledby="protocol-title">
+          <div class="section-heading compact">
+            <div>
+              <p class="section-kicker">Protocol lab</p>
+              <h2 id="protocol-title">Timing diagrams you can feel.</h2>
+            </div>
+            <p>
+              I2C, UART, and SPI are shown as live signal behavior: clock edges, data framing, start/stop conditions, and shifting bits.
+            </p>
+          </div>
+
+          <div class="protocol-lab">
+            <div class="protocol-tabs" role="tablist" aria-label="Protocol simulations">
+              <button class="tab active" role="tab" aria-selected="true" data-protocol="i2c">I2C</button>
+              <button class="tab" role="tab" aria-selected="false" data-protocol="uart">UART</button>
+              <button class="tab" role="tab" aria-selected="false" data-protocol="spi">SPI</button>
+            </div>
+
+            <div class="uart-controls-bar" id="uartControls" style="display: none;">
+              <span class="readout-label">UART TX Generator:</span>
+              <div class="uart-input-wrap">
+                <input type="text" id="uartInput" maxlength="1" value="K" class="uart-char-input" aria-label="Custom ASCII character to transmit" />
+                <div class="preset-buttons">
+                  <button type="button" class="preset-btn" data-char="K">K</button>
+                  <button type="button" class="preset-btn" data-char="R">R</button>
+                  <button type="button" class="preset-btn" data-char="I">I</button>
+                  <button type="button" class="preset-btn" data-char="S">S</button>
+                  <button type="button" class="preset-btn" data-char="H">H</button>
+                </div>
+              </div>
+              <span id="uartHexReadout" class="hex-badge">ASCII 'K': 0x4B (01001011)</span>
+            </div>
+
+            <div class="protocol-display">
+              <canvas id="protocolCanvas" width="1200" height="420" aria-label="Animated protocol timing diagram"></canvas>
+              <div class="protocol-copy">
+                <p class="protocol-name" id="protocolName">Instruction-driven I2C</p>
+                <h3 id="protocolHeadline">START, address, ACK, data, STOP on SCL and SDA.</h3>
+                <p id="protocolDescription">
+                  SDA falls while SCL is high for START, data changes around low clock windows, ACK is sampled, and STOP releases the bus high.
+                </p>
+                <div class="bit-window" id="bitWindow" aria-label="Current transfer bits"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section systems-section" id="systems" aria-labelledby="systems-title">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">RTL systems archive</p>
+              <h2 id="systems-title">Projects as hardware modules.</h2>
+            </div>
+            <p>
+              Click any module card below to open its hardware specification details, pinout overview, and simulation references.
+            </p>
+          </div>
+          <div class="module-grid">
+            <article class="module-card accent-cyan" data-project="riscv">
+              <div class="module-header">
+                <span class="module-label">processor</span>
+                <span class="badge">RTL</span>
+              </div>
+              <h3>RISC-V RV32I Processor</h3>
+              <p>Five-stage Verilog pipeline with ALU, control unit, pipeline registers, memory stages, and targeted simulation testbenches.</p>
+              <div class="card-footer">
+                <button class="card-spec-btn" type="button">Inspect Hardware Spec ↗</button>
+                <a href="https://github.com/krishprasad63/riscv-rv32i-processor-mk2" target="_blank" rel="noreferrer" onclick="event.stopPropagation();">GitHub ↗</a>
+              </div>
+            </article>
+
+            <article class="module-card accent-green" data-project="i2c">
+              <div class="module-header">
+                <span class="module-label">serial bus</span>
+                <span class="badge">Verilog</span>
+              </div>
+              <h3>Instruction-Driven I2C</h3>
+              <p>Custom 32-bit instruction format controlling START, STOP, addressing, transfer stages, and multi-slave behavior.</p>
+              <div class="card-footer">
+                <button class="card-spec-btn" type="button">Inspect Hardware Spec ↗</button>
+                <a href="https://github.com/krishprasad63/I2C" target="_blank" rel="noreferrer" onclick="event.stopPropagation();">GitHub ↗</a>
+              </div>
+            </article>
+
+            <article class="module-card accent-amber" data-project="uart">
+              <div class="module-header">
+                <span class="module-label">communication</span>
+                <span class="badge">Serial</span>
+              </div>
+              <h3>UART + SPI Systems</h3>
+              <p>Verified transmitter, receiver, baud generation, SPI master/slave, clock generation, and full-duplex data movement.</p>
+              <div class="card-footer">
+                <button class="card-spec-btn" type="button">Inspect Hardware Spec ↗</button>
+                <a href="https://github.com/krishprasad63?tab=repositories" target="_blank" rel="noreferrer" onclick="event.stopPropagation();">Repos ↗</a>
+              </div>
+            </article>
+
+            <article class="module-card accent-rose" data-project="rtl-img">
+              <div class="module-header">
+                <span class="module-label">visual RTL</span>
+                <span class="badge">DSP/FPGA</span>
+              </div>
+              <h3>RTL Image Processing Lab</h3>
+              <p>Hardware-level spatial filtering and pixel pipeline transforming image streams entering custom Verilog processing blocks.</p>
+              <div class="card-footer">
+                <button class="card-spec-btn" type="button">Inspect Hardware Spec ↗</button>
+                <a href="https://github.com/krishprasad63/rtl-image-processing-lab" target="_blank" rel="noreferrer" onclick="event.stopPropagation();">GitHub ↗</a>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section skills-section" id="skills" aria-labelledby="skills-title">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">Technical competencies</p>
+              <h2 id="skills-title">Hardware stack & toolchain.</h2>
+            </div>
+            <p>
+              Core engineering domain knowledge spanning digital design, computer architecture, serial protocols, and EDA toolchains.
+            </p>
+          </div>
+
+          <div class="skills-grid">
+            <div class="skill-card">
+              <div class="skill-icon">🔌</div>
+              <h3>RTL & HW Description</h3>
+              <ul class="skill-list">
+                <li>Verilog / SystemVerilog</li>
+                <li>FSM Design & Data Paths</li>
+                <li>Pipelining & Register Transfer</li>
+                <li>Combinational & Sequential Logic</li>
+              </ul>
+            </div>
+
+            <div class="skill-card">
+              <div class="skill-icon">🧠</div>
+              <h3>Computer Architecture</h3>
+              <ul class="skill-list">
+                <li>RISC-V ISA (RV32I)</li>
+                <li>MIPS32 Processor Cores</li>
+                <li>Hazard Detection & Forwarding</li>
+                <li>ALU & Instruction Decoders</li>
+              </ul>
+            </div>
+
+            <div class="skill-card">
+              <div class="skill-icon">📡</div>
+              <h3>Serial Protocols</h3>
+              <ul class="skill-list">
+                <li>I2C (Multi-Master/Slave)</li>
+                <li>SPI (Full-Duplex Synchronous)</li>
+                <li>UART (Baud Rate Generator)</li>
+                <li>Protocol Instruction Controllers</li>
+              </ul>
+            </div>
+
+            <div class="skill-card">
+              <div class="skill-icon">🛠️</div>
+              <h3>EDA Tools & Simulation</h3>
+              <ul class="skill-list">
+                <li>AMD Xilinx Vivado Design Suite</li>
+                <li>GTKWave Waveform Viewer</li>
+                <li>ModelSim / Icarus Verilog</li>
+                <li>C++ / Embedded C / Python</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="section leadership-section" id="leadership" aria-labelledby="leadership-title">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">Leadership</p>
+              <h2 id="leadership-title">Engineering communities, not just code.</h2>
+            </div>
+            <p>
+              Technical depth matters more when it also helps a team build, learn, and ship.
+            </p>
+          </div>
+          <div class="timeline">
+            <article class="timeline-item active">
+              <span>Current</span>
+              <h3>General Secretary, Yantronix Robotics Club</h3>
+              <p>Leading NIT Arunachal Pradesh's robotics club, guiding workshops, robot design competitions, and technical hardware initiatives.</p>
+            </article>
+            <article class="timeline-item">
+              <span>Tenure ending Oct 2026</span>
+              <h3>Additional General Secretary, ECESS</h3>
+              <p>Electronics and Communication Engineering Student Society leadership, organizing technical symposia and community events.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section contact-section" id="contact" aria-labelledby="contact-title">
+          <div class="contact-box">
+            <div class="contact-info">
+              <p class="section-kicker">Direct Connection</p>
+              <h2 id="contact-title">Let's build hardware together.</h2>
+              <p>
+                Interested in digital logic design, VLSI, RTL verification, embedded systems, or robotics collaboration? Feel free to reach out.
+              </p>
+              <div class="contact-badges">
+                <span class="status-pill"><span class="pulse-dot"></span> Open for VLSI / Hardware Roles</span>
+                <span class="location-pill">📍 NIT Arunachal Pradesh, India</span>
+              </div>
+            </div>
+            <div class="contact-card">
+              <div class="terminal-header">
+                <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                <span class="terminal-title">krish@bench ~ contact</span>
+              </div>
+              <div class="terminal-body">
+                <div class="term-line">
+                  <span class="prompt">$</span> <span class="cmd">echo $EMAIL</span>
+                </div>
+                <div class="term-line email-row">
+                  <code id="emailText">krishprasad63@gmail.com</code>
+                  <button id="copyEmailBtn" type="button" class="copy-btn">Copy Email</button>
+                </div>
+                <div class="term-line">
+                  <span class="prompt">$</span> <span class="cmd">cat links.json</span>
+                </div>
+                <div class="contact-links">
+                  <a href="https://github.com/krishprasad63" target="_blank" rel="noreferrer" class="button secondary">GitHub Profile ↗</a>
+                  <a href="https://www.linkedin.com/in/krish-prasad-a3a890258/" target="_blank" rel="noreferrer" class="button secondary">LinkedIn ↗</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <div class="footer-content">
+          <div>
+            <strong>Krish Prasad</strong>
+            <p>Digital Systems & Computer Architecture Portfolio</p>
+          </div>
+          <div class="footer-links">
+            <a href="#processor">Processor</a>
+            <a href="#protocols">Protocols</a>
+            <a href="#systems">Systems</a>
+            <a href="#skills">Skills</a>
+            <a href="#contact">Contact</a>
+            <a href="#home" class="back-top">Back to top ↑</a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>© 2026 Krish Prasad. Designed with hardware bench precision.</p>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Interactive Hardware Spec Modal -->
+    <div class="modal-backdrop" id="projectModal" aria-hidden="true" role="dialog" aria-labelledby="modalTitle">
+      <div class="modal-card">
+        <button class="modal-close" id="modalCloseBtn" type="button" aria-label="Close dialog">✕</button>
+        <div class="modal-header">
+          <span class="module-label" id="modalLabel">RTL Spec</span>
+          <h2 id="modalTitle">Project Specs</h2>
+        </div>
+        <div class="modal-body" id="modalBody">
+          <!-- Populated dynamically via app.js -->
+        </div>
+        <div class="modal-footer">
+          <a id="modalGithubLink" href="#" target="_blank" rel="noreferrer" class="button primary">Open GitHub Repository ↗</a>
+          <button class="button secondary" id="modalDismiss" type="button">Close Spec</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toastNotification" class="toast-notification" aria-live="polite"></div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
+
